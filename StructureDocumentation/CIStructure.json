@@ -1,0 +1,39 @@
+{
+    "tableName": "CI",
+    "inputFields": [
+        {
+            "name": "CNP",
+            "type": "String",
+            "pattern": "[0-9]{13}",
+            "isUnique": true
+        },
+        {
+            "name": "series",
+            "type": "String",
+            "pattern": "[A-Z]{2}"
+        },
+        {
+            "name": "number",
+            "type": "String",
+            "pattern": "[0-9]{6}",
+            "isUnique": true
+        },
+        {
+            "name": "expirationDate",
+            "type": "LocalDateTime",
+            "pattern": "none"
+        }
+    ],
+    "logicFields": [
+        {
+            "name": "id",
+            "type": "Long",
+            "isUnique": true
+        },
+        {
+            "name": "user",
+            "type": "User",
+            "relation": "Every identity card has only one user assigned."
+        }
+    ]
+}

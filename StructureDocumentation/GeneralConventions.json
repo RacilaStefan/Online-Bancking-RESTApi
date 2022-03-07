@@ -1,0 +1,20 @@
+{
+    "documentationConventions": [
+        {
+            "inJson": [
+                {
+                    "rule1": "\"isNullable\" and \"isUnique\" if false are not mentioned."
+                }
+            ]
+        }
+    ],
+    "namingConventions": [
+        {
+            "fields": [
+                {
+                    "rule1": "The field are named camel case."
+                }
+            ]
+        }
+    ]
+}

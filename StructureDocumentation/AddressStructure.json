@@ -1,0 +1,59 @@
+{
+    "tableName": "Address",
+    "inputFields": [
+        {
+            "name": "country",
+            "type": "String",
+            "pattern": "none",
+            "description": "This field does not have a pattern because it will be selected and not written. For malicious post requests the server will be protected by spring security csrf protection."
+        },
+        {
+            "name": "region",
+            "type": "String",
+            "pattern": "[A-Z][a-zA-Z \\-']{2,100}",
+            "isNullable": true
+        },
+        {
+            "name": "city",
+            "type": "String",
+            "pattern": "[A-Z][a-zA-Z \\-']{2,100}",
+            "isNullable": true
+        },
+        {
+            "name": "street",
+            "type": "String",
+            "pattern": "[A-Z][a-zA-Z \\-']{2,100}",
+            "isNullable": true
+        },
+        {
+            "name": "number",
+            "type": "String",
+            "pattern": "[A-Za-z0-9\\-]{1,10}",
+            "isNullable": true
+        },
+        {
+            "name": "staircase",
+            "type": "String",
+            "pattern": "[A-Za-z0-9\\-]{1,10}",
+            "isNullable": true
+        },
+        {
+            "name": "apartment",
+            "type": "String",
+            "pattern": "[A-Za-z0-9\\-]{1,10}",
+            "isNullable": true
+        }
+    ],
+    "logicFields": [
+        {
+            "name": "id",
+            "type": "Long",
+            "isUnique": true
+        },
+        {
+            "name": "user",
+            "type": "User",
+            "relation": "Every address has only one user assigned."
+        }
+    ]
+}

@@ -1,0 +1,57 @@
+{
+    "tableName": "Account",
+    "inputFields": [
+        {
+            "name": "currency",
+            "type": "Currency",
+            "pattern": "none",
+            "description": "Field is selected, not written."
+        },
+        {
+            "name": "type",
+            "type": "AccountType",
+            "pattern": "none",
+            "description": "Field is selected, not written."
+        },
+        {
+            "name": "pin",
+            "type": "String",
+            "pattern": "[0-9]{4}"
+        }
+    ],
+    "logicFields": [
+        {
+            "name": "id",
+            "type": "Long",
+            "isUnique": true
+        },
+        {
+            "name": "IBAN",
+            "type": "String",
+            "isUnique": true
+        },
+        {
+            "name": "cardNumber",
+            "type": "String",
+            "isUnique": true
+        },
+        {
+            "name": "CCV",
+            "type": "String"
+        },
+        {
+            "name": "balance",
+            "type": "Long"
+        },
+        {
+            "name": "expirationDate",
+            "type": "LocalDateTime"
+        },
+        {
+            "name": "user",
+            "type": "User",
+            "relation": "Every account has only one user assigned."
+        }
+
+    ]
+}

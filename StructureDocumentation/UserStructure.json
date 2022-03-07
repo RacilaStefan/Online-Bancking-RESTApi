@@ -1,0 +1,82 @@
+{
+    "tableName": "User",
+    "inputFields": [
+        {
+            "name": "lastName",
+            "type": "String",
+            "pattern": "[A-Z][a-zA-Z \\-']{2,100}",
+            "description": "Must be the same as on the CI.",
+        },
+        {
+            "name": "firstName",
+            "type": "String",
+            "pattern": "[A-Z][a-zA-Z \\-']{2,100}",
+            "description": "Must be the same as on the CI.",
+        },
+        {
+            "name": "username",
+            "type": "String",
+            "pattern": "[A-Za-z0-9_]{8,100}",
+            "isUnique": true
+        },
+        {
+            "name": "password",
+            "type": "String",
+            "pattern": "[A-Za-z0-9~!@#$%^&*()_=+[{};:'\"<>,.?\\]\\-]{12,100}",
+        },
+        {
+            "name": "email",
+            "type": "String",
+            "pattern": "already build in spring and html forms",
+            "isUnique": true
+        },
+        {
+            "name": "telephoneNumber",
+            "type": "String",
+            "pattern": "[0-9]{10}",
+            "isUnique": true
+        }
+    ],
+    "logicFields": [
+        {
+            "name": "id",
+            "type": "Long",
+            "isUnique": true
+        },
+        {
+            "name": "role",
+            "type": "UserRole"
+        },
+        {
+            "name": "locked",
+            "type": "Boolean"
+        },
+        {
+            "name": "enabledVar",
+            "type": "Boolean"
+        },
+        {
+            "name": "address",
+            "type": "Address",
+            "relation": "Every user has only one address."
+        },
+        {
+            "name": "ci",
+            "type": "CI",
+            "relation": "Every user has only one identity card."
+        },
+        {
+            "name": "token",
+            "type": "Token",
+            "relation": "Every user has only one token object.",
+            "description": "The class Token holds two (momentary) UUID tokens for changing the username and password. The tokens will be valid for a period of time only."
+        },
+        {
+            "name": "accounts",
+            "type": "Set<Accounts>",
+            "relation": "Every user can have one or more accounts.",
+            "description": "An user can have different types of accounts, the maximum number of accounts that a user can have is not described yet."
+        }
+    ]
+}
+

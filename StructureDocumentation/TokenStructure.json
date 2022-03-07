@@ -1,0 +1,42 @@
+{
+    "tableName": "Token",
+    "inputFields": [
+        {
+
+        }
+    ],
+    "logicFields": [
+        {
+            "name": "id",
+            "type": "Long",
+            "isUnique": true
+        },
+        {
+            "name": "token1",
+            "type": "UUID",
+            "isUnique": true,
+            "description": "The token required for changing the username."
+        },
+        {
+            "name": "expDate1",
+            "type": "LocalDateTime",
+            "description": "Expiration date for token1."
+        },
+        {
+            "name": "token2",
+            "type": "UUID",
+            "isUnique": true,
+            "description": "The token required for changing the password."
+        },
+        {
+            "name": "expDate2",
+            "type": "LocalDateTime",
+            "description": "Expiration date for token2."
+        },
+        {
+            "name": "user",
+            "type": "User",
+            "relation": "Every token object has only one user assigned."
+        }
+    ]
+}
