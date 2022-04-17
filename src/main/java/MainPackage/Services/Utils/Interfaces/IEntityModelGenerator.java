@@ -13,17 +13,19 @@ public interface IEntityModelGenerator {
 
     EntityModel<UserDto> generateModelFromUser(User user);
 
-    CollectionModel<EntityModel<AddressDto>> generateModelFromAddresses(Iterable<Address> addresses, Boolean isParent);
+    CollectionModel<EntityModel<AddressDto>> generateModelFromAddresses(Iterable<Address> addresses);
 
-    EntityModel<AddressDto> generateModelFromAddress(Address address, Boolean isParent);
+    EntityModel<AddressDto> generateModelFromAddress(Address address);
 
-    CollectionModel<EntityModel<CIDto>> generateModelFromCIs(Iterable<CI> CIs, Boolean isParent);
+    CollectionModel<EntityModel<CIDto>> generateModelFromCIs(Iterable<CI> CIs);
 
-    EntityModel<CIDto> generateModelFromCi(CI ci, Boolean isParent);
+    EntityModel<CIDto> generateModelFromCi(CI ci);
 
     EntityModel<TokenDto> generateModelFromToken(Token token);
 
-    CollectionModel<EntityModel<AccountDto>> generateModelFromAccounts(Set<Account> accounts, Boolean isParent);
+    CollectionModel<EntityModel<AccountDto>> generateModelFromAccounts(Set<Account> accounts);
 
-    EntityModel<AccountDto> generateModelFromAccount(Account account, Boolean isParent);
+    CollectionModel<EntityModel<AccountDto>> generateModelFromAccounts(Iterable<Account> accounts);
+
+    EntityModel<AccountDto> generateModelFromAccount(Account account);
 }

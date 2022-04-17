@@ -1,14 +1,15 @@
 package MainPackage.RestControllers;
 
 import MainPackage.Dto.*;
+import MainPackage.GlobalExceptionHandler.CustomExceptions.CustomInvalidInputException;
+import MainPackage.Services.DatabaseCommunication.RegisterService;
 import MainPackage.Services.DatabaseCommunication.UserDbService;
 import lombok.AllArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -17,40 +18,54 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class UserController {
 
-    private final UserDbService service;
+    private final UserDbService userService;
+    private final RegisterService registerService;
+
+    //#######  GET ENDPOINTS  #######//
 
     @GetMapping()
     public CollectionModel<EntityModel<UserDto>> findAll() {
-        return service.findAll();
+        return userService.findAll();
     }
 
     @GetMapping("/{id}")
     public EntityModel<UserDto> findById(@PathVariable Long id) {
-        return service.findById(id);
+        return userService.findById(id);
     }
 
     @GetMapping("/{id}/address")
     public EntityModel<AddressDto> findAddressByUserId(@PathVariable Long id){
-        return service.findAddressByUserId(id);
+        return userService.findAddressByUserId(id);
     }
 
     @GetMapping("/{id}/ci")
     public EntityModel<CIDto> findCiByUserId(@PathVariable Long id){
-        return service.findCIByUserId(id);
+        return userService.findCIByUserId(id);
     }
 
     @GetMapping("/{id}/token")
     public EntityModel<TokenDto> findTokenByUserId(@PathVariable Long id){
-        return service.findTokenByUserId(id);
+        return userService.findTokenByUserId(id);
     }
 
     @GetMapping("/{id}/accounts")
     public CollectionModel<EntityModel<AccountDto>> findAccountsByUserId(@PathVariable Long id){
-        return service.findAccountsByUserId(id);
+        return userService.findAccountsByUserId(id);
     }
 
     @GetMapping("/{id}/account/{accountId}")
     public EntityModel<AccountDto> findAccountByIdByUserId(@PathVariable Long id, @PathVariable Long accountId){
-        return service.findAccountByIdByUserId(id, accountId);
+        return userService.findAccountByIdByUserId(id, accountId);
     }
+
+    //#######  GET ENDPOINTS  #######//
+
+    //#######  POST ENDPOINTS  #######//
+
+    @PostMapping()
+    private ResponseEntity<String> save(@RequestBody UserDto user) throws CustomInvalidInputException {
+        return new ResponseEntity<>("User created " + registerService.registerUser(user), HttpStatus.CREATED);
+    }
+
+    //#######  POST ENDPOINTS  #######//
 }

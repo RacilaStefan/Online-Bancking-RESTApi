@@ -1,6 +1,5 @@
 package MainPackage.Domain;
 
-import MainPackage.Dto.UserDto;
 import MainPackage.EnumsAndStaticClasses.UserRole;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
@@ -13,7 +12,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity
 @Table (name = "User",
@@ -27,7 +25,6 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
 
     @Id
-    @NotNull
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -44,7 +41,6 @@ public class User implements UserDetails {
     private String username;
 
     @NotNull
-    @Pattern(regexp = "[A-Za-z0-9~!@#$%^&*()_=+\\[{};:'\"<>,.?\\]\\-]{12,100}")
     private String password;
 
     @NotNull
@@ -65,25 +61,23 @@ public class User implements UserDetails {
     private Boolean enabled = false;
 
     @JsonManagedReference
-    @NotNull
-    @OneToOne (mappedBy = "user")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn (name = "address_id", referencedColumnName = "id")
     private Address address;
 
     @JsonManagedReference
-    @NotNull
-    @OneToOne (mappedBy = "user")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn (name = "ci_id", referencedColumnName = "id")
     private CI ci;
 
     @JsonManagedReference
-    @NotNull
-    @OneToOne (mappedBy = "user")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn (name = "token_id", referencedColumnName = "id")
     private Token token;
 
 
     @JsonManagedReference
-    @NotNull
-    @OneToMany
-    @JoinColumn (name = "user_id")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Account> accounts = new HashSet<>();
 
     @Override

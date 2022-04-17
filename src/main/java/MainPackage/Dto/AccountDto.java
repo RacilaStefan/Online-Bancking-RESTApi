@@ -6,6 +6,9 @@ import MainPackage.EnumsAndStaticClasses.Currency;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Getter
@@ -19,7 +22,13 @@ public class AccountDto {
     private String CVV;
     private Long balance;
     private LocalDateTime expirationDate;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
     private Currency currency;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
     private AccountType type;
 
 

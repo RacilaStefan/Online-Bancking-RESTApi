@@ -25,7 +25,6 @@ import java.util.Objects;
 public class CI {
 
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -42,8 +41,7 @@ public class CI {
     private LocalDateTime expirationDate;
 
     @JsonBackReference
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @OneToOne (mappedBy = "ci")
     private User user;
 
     @Override

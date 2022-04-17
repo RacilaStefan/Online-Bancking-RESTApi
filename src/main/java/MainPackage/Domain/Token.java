@@ -1,10 +1,7 @@
 package MainPackage.Domain;
 
-import MainPackage.Dto.TokenDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -20,11 +17,9 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class Token {
 
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -41,9 +36,15 @@ public class Token {
     private LocalDateTime expDate2;
 
     @JsonBackReference
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @OneToOne (mappedBy = "token")
     private User user;
+
+    public Token() {
+        token1 = UUID.randomUUID();
+        token2 = UUID.randomUUID();
+        expDate1 = LocalDateTime.now().plusMinutes(10);
+        expDate2 = expDate1;
+    }
 
     @Override
     public boolean equals(Object o) {

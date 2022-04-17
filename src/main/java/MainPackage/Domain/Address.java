@@ -22,7 +22,6 @@ import java.util.Objects;
 public class Address {
 
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -49,8 +48,7 @@ public class Address {
     private String apartment;
 
     @JsonBackReference
-    @OneToOne
-    @JoinColumn (name = "user_id", referencedColumnName = "id")
+    @OneToOne (mappedBy = "address")
     private User user;
 
     @Override

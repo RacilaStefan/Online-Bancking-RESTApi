@@ -46,64 +46,67 @@ public class EntityModelGenerator implements IEntityModelGenerator {
         links.add(linkTo(methodOn(UserController.class).findCiByUserId(user.getId())).withRel("ci"));
         links.add(linkTo(methodOn(UserController.class).findTokenByUserId(user.getId())).withRel("token"));
 
-        return EntityModel.of(new UserDto().getDto(user), links);
+        return EntityModel.of(new UserDto().getDto(user, false), links);
     }
 
-    public CollectionModel<EntityModel<AddressDto>> generateModelFromAddresses(Iterable<Address> addresses, Boolean isParent) {
+    public CollectionModel<EntityModel<AddressDto>> generateModelFromAddresses(Iterable<Address> addresses) {
         return CollectionModel.of(
                 StreamSupport.stream(addresses.spliterator(), false).map(
-                        address -> generateModelFromAddress(address, isParent)
+                        this::generateModelFromAddress
                 ).collect(Collectors.toSet()),
                 linkTo(methodOn(AddressController.class).findAll()).withRel("addresses"));
     }
 
-    public EntityModel<AddressDto> generateModelFromAddress(Address address, Boolean isParent) {
-        if (isParent)
-            return EntityModel.of(new AddressDto().getDto(address),
-                    linkTo(methodOn(AddressController.class).findById(address.getId())).withSelfRel(),
-                    linkTo(methodOn(UserController.class).findById(address.getUser().getId())).withRel("user"));
-
+    public EntityModel<AddressDto> generateModelFromAddress(Address address) {
         return EntityModel.of(new AddressDto().getDto(address),
-                linkTo(methodOn(UserController.class).findAddressByUserId(address.getUser().getId())).withSelfRel(),
-                linkTo(methodOn(AddressController.class).findAll()).withRel("addresses"));
+                linkTo(methodOn(AddressController.class).findById(address.getId())).withSelfRel(),
+                linkTo(methodOn(UserController.class).findById(address.getUser().getId())).withRel("user"));
     }
 
-    public CollectionModel<EntityModel<CIDto>> generateModelFromCIs(Iterable<CI> CIs, Boolean isParent) {
-        return null;
+    public CollectionModel<EntityModel<CIDto>> generateModelFromCIs(Iterable<CI> CIs) {
+        return CollectionModel.of(
+                StreamSupport.stream(CIs.spliterator(), false).map(
+                        this::generateModelFromCi
+                ).collect(Collectors.toSet()),
+                linkTo(methodOn(CIController.class).findAll()).withRel("cis"));
     }
 
-    public EntityModel<CIDto> generateModelFromCi(CI ci, Boolean isParent) {
-        if (isParent)
-            return EntityModel.of(new CIDto().getDto(ci),
-                    linkTo(CIController.class).withSelfRel());
-
+    public EntityModel<CIDto> generateModelFromCi(CI ci) {
         return EntityModel.of(new CIDto().getDto(ci),
-                linkTo(methodOn(UserController.class).findCiByUserId(ci.getUser().getId())).withSelfRel());
+                linkTo(methodOn(CIController.class).findById(ci.getId())).withSelfRel(),
+                linkTo(methodOn(UserController.class).findById(ci.getUser().getId())).withRel("user"));
+
     }
 
     public EntityModel<TokenDto> generateModelFromToken(Token token) {
         return EntityModel.of(new TokenDto().getDto(token),
-                linkTo(methodOn(UserController.class).findTokenByUserId(token.getUser().getId())).withSelfRel());
+                linkTo(methodOn(UserController.class).findTokenByUserId(token.getUser().getId())).withSelfRel(),
+                linkTo(methodOn(UserController.class).findById(token.getUser().getId())).withRel("user"));
     }
 
-    public CollectionModel<EntityModel<AccountDto>> generateModelFromAccounts(Set<Account> accounts, Boolean isParent) {
+    public CollectionModel<EntityModel<AccountDto>> generateModelFromAccounts(Set<Account> accounts) {
         return CollectionModel.of(accounts.stream().map(
-                account -> generateModelFromAccount(account, isParent)
+                this::generateModelFromAccount
                 ).collect(Collectors.toSet()),
                 linkTo(methodOn(UserController.class)
                         .findAccountsByUserId(accounts
                                 .stream()
                                 .findAny()
-                                .orElseThrow().getUser().getId())).withRel("userAccounts"));
+                                .orElseThrow().getUser().getId())).withRel("accounts"));
     }
 
-    public EntityModel<AccountDto> generateModelFromAccount(Account account, Boolean isParent) {
-        if (isParent)
-            return EntityModel.of(new AccountDto().getDto(account),
-                    linkTo(AccountController.class).withSelfRel());
+    public CollectionModel<EntityModel<AccountDto>> generateModelFromAccounts(Iterable<Account> accounts) {
+        return CollectionModel.of(
+                StreamSupport.stream(accounts.spliterator(), false).map(
+                        this::generateModelFromAccount
+                ).collect(Collectors.toSet()),
+                linkTo(methodOn(AccountController.class).findAll()).withRel("accounts"));
+    }
 
+    public EntityModel<AccountDto> generateModelFromAccount(Account account) {
         return EntityModel.of(new AccountDto().getDto(account),
-                linkTo(methodOn(UserController.class)
-                        .findAccountByIdByUserId(account.getUser().getId(), account.getId())).withSelfRel());
+                linkTo(methodOn(AccountController.class).findById(account.getId())).withSelfRel(),
+                linkTo(methodOn(UserController.class).findById(account.getUser().getId())).withRel("user"));
+
     }
 }

@@ -4,6 +4,7 @@ import MainPackage.Domain.CI;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Getter
@@ -11,9 +12,17 @@ import java.time.LocalDateTime;
 public class CIDto {
 
     private Long id;
+
+    @NotNull
     private String CNP;
+
+    @NotNull
     private String series;
+
+    @NotNull
     private String number;
+
+    @NotNull
     private LocalDateTime expirationDate;
 
     public CI fromDto() {

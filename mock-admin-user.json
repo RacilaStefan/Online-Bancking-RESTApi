@@ -1,0 +1,32 @@
+{
+    "accounts": [
+        {
+            "currency": "EUR",
+            "type": "CURRENT_ACCOUNT"
+        }
+    ],
+    "address": {
+        "apartment": "string",
+        "city": "String",
+        "country": "Romania",
+        "number": "12",
+        "region": "String",
+        "staircase": "string",
+        "street": "String"
+    },
+    "ci": {
+        "cnp": "string",
+        "expirationDate": "2022-04-16T05:16:13.103Z",
+        "number": "string",
+        "series": "string"
+    },
+    "email": "admin@admin.com",
+    "enabled": true,
+    "firstName": "Stefan",
+    "lastName": "Racila",
+    "locked": false,
+    "password": "qwertyuiop1234",
+    "role": "ROLE_ADMIN",
+    "telephoneNumber": "1231231231",
+    "username": "stefan_admin"
+}

@@ -1,12 +1,11 @@
 package MainPackage.Domain;
 
-import MainPackage.Dto.AccountDto;
 import MainPackage.EnumsAndStaticClasses.AccountType;
 import MainPackage.EnumsAndStaticClasses.BankDetails;
 import MainPackage.EnumsAndStaticClasses.Currency;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,7 +25,6 @@ import java.util.Objects;
 public class Account {
 
     @Id
-    @NotNull
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -61,6 +59,7 @@ public class Account {
 
     @JsonBackReference
     @ManyToOne
+    @JoinColumn (name = "user_id")
     private User user;
 
     @Override
