@@ -2,6 +2,7 @@ package MainPackage.Dto;
 
 import MainPackage.Domain.*;
 import MainPackage.EnumsAndStaticClasses.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -52,7 +53,7 @@ public class UserDto {
     @NotNull
     private Boolean locked = false;
     @NotNull
-    private Boolean enabled = false;
+    private Boolean enabled = true;
 
     @NotNull
     private AddressDto address;

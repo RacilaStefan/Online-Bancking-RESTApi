@@ -16,15 +16,13 @@
     },
     "ci": {
         "cnp": "string",
-        "expirationDate": "2022-04-16T05:16:13.103Z",
+        "expirationDate": "14/09/2027",
         "number": "string",
         "series": "string"
     },
     "email": "admin@admin.com",
-    "enabled": true,
     "firstName": "Stefan",
     "lastName": "Racila",
-    "locked": false,
     "password": "qwertyuiop1234",
     "role": "ROLE_ADMIN",
     "telephoneNumber": "1231231231",

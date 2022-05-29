@@ -1,0 +1,16 @@
+#Files created by developer
+*.txt
+
+#Files created by IDE
+mvnw
+mvnw.cmd
+HELP.md
+*.iml
+
+
+#Folders
+.idea
+.mvn
+target
+custom
+test

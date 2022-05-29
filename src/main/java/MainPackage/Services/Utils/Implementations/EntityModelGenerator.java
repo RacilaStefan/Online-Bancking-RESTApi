@@ -92,7 +92,7 @@ public class EntityModelGenerator implements IEntityModelGenerator {
                         .findAccountsByUserId(accounts
                                 .stream()
                                 .findAny()
-                                .orElseThrow().getUser().getId())).withRel("accounts"));
+                                .orElseThrow().getUser().getId())).withSelfRel());
     }
 
     public CollectionModel<EntityModel<AccountDto>> generateModelFromAccounts(Iterable<Account> accounts) {
@@ -100,7 +100,7 @@ public class EntityModelGenerator implements IEntityModelGenerator {
                 StreamSupport.stream(accounts.spliterator(), false).map(
                         this::generateModelFromAccount
                 ).collect(Collectors.toSet()),
-                linkTo(methodOn(AccountController.class).findAll()).withRel("accounts"));
+                linkTo(methodOn(AccountController.class).findAll()).withSelfRel());
     }
 
     public EntityModel<AccountDto> generateModelFromAccount(Account account) {

@@ -35,7 +35,7 @@ public class Address {
     @Pattern(regexp = "[A-Z][a-zA-Z \\-']{2,100}")
     private String city;
 
-    @Pattern(regexp = "[A-Z][a-zA-Z \\-']{2,100}")
+    @Pattern(regexp = "[A-Za-z \\-']{2,100}")
     private String street;
 
     @Pattern(regexp = "[A-Za-z0-9\\-]{1,10}")

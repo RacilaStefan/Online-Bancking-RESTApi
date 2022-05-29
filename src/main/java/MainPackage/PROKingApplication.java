@@ -2,7 +2,7 @@ package MainPackage;
 
 import MainPackage.Dto.UserDto;
 import MainPackage.GlobalExceptionHandler.CustomExceptions.CustomInvalidInputException;
-import MainPackage.Services.DatabaseCommunication.RegisterService;
+import MainPackage.Services.Utils.Implementations.RegisterService;
 import MainPackage.Services.Utils.Implementations.CurrentTime;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;

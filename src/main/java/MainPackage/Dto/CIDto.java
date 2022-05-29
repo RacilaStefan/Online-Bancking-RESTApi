@@ -1,11 +1,12 @@
 package MainPackage.Dto;
 
 import MainPackage.Domain.CI;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -23,7 +24,8 @@ public class CIDto {
     private String number;
 
     @NotNull
-    private LocalDateTime expirationDate;
+    @JsonFormat(pattern="dd/MM/yyyy")
+    private LocalDate expirationDate;
 
     public CI fromDto() {
         CI ci = new CI();

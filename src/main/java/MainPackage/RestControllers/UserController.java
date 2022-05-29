@@ -2,7 +2,7 @@ package MainPackage.RestControllers;
 
 import MainPackage.Dto.*;
 import MainPackage.GlobalExceptionHandler.CustomExceptions.CustomInvalidInputException;
-import MainPackage.Services.DatabaseCommunication.RegisterService;
+import MainPackage.Services.Utils.Implementations.RegisterService;
 import MainPackage.Services.DatabaseCommunication.UserDbService;
 import lombok.AllArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
@@ -64,7 +64,8 @@ public class UserController {
 
     @PostMapping()
     private ResponseEntity<String> save(@RequestBody UserDto user) throws CustomInvalidInputException {
-        return new ResponseEntity<>("User created " + registerService.registerUser(user), HttpStatus.CREATED);
+        registerService.registerUser(user);
+        return new ResponseEntity<>("User created", HttpStatus.CREATED);
     }
 
     //#######  POST ENDPOINTS  #######//
