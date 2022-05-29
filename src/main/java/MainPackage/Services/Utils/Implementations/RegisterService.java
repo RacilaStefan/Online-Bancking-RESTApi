@@ -3,35 +3,33 @@ package MainPackage.Services.Utils.Implementations;
 import MainPackage.Domain.Account;
 import MainPackage.Domain.User;
 import MainPackage.Dto.UserDto;
-import MainPackage.EnumsAndStaticClasses.UserRole;
 import MainPackage.GlobalExceptionHandler.CustomExceptions.CustomInvalidInputException;
-import MainPackage.Services.DatabaseCommunication.AccountDbService;
-import MainPackage.Services.DatabaseCommunication.AddressDbService;
-import MainPackage.Services.DatabaseCommunication.CIDbService;
-import MainPackage.Services.DatabaseCommunication.UserDbService;
-import MainPackage.Services.Utils.Implementations.BankAccountService;
-import MainPackage.Services.Utils.Implementations.CurrentTime;
-import MainPackage.Services.Utils.Implementations.Validator;
+import MainPackage.Services.DatabaseCommunication.EntityModelType.UserDbService;
+import MainPackage.Services.DatabaseCommunication.ModelReturnType.AccountEntityModelService;
+import MainPackage.Services.DatabaseCommunication.ModelReturnType.AddressEntityModelService;
+import MainPackage.Services.DatabaseCommunication.ModelReturnType.CIEntityModelService;
+import MainPackage.Services.DatabaseCommunication.ModelReturnType.UserEntityModelService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.Set;
 
 @Service
 @AllArgsConstructor
 public class RegisterService {
 
-    private final AccountDbService accountDbService;
-    private final AddressDbService addressDbService;
-    private final CIDbService ciDbService;
+    private final AccountEntityModelService accountDbService;
+    private final AddressEntityModelService addressDbService;
+    private final CIEntityModelService ciDbService;
     private final UserDbService userDbService;
 
     private final Validator customValidator;
     private final BankAccountService bankAccountService;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public User registerUser(UserDto userDto) throws CustomInvalidInputException {
+    public User saveUser(UserDto userDto) throws CustomInvalidInputException {
         customValidator.validateUser(userDto);
         customValidator.validateAccounts(userDto.getAccounts());
         customValidator.validateAddress(userDto.getAddress());
@@ -41,6 +39,20 @@ public class RegisterService {
         prepareUserForRegister(user);
 
         return userDbService.saveUser(user);
+    }
+
+    public User saveUser(UserDto userDto, Long id) throws CustomInvalidInputException {
+        UserDto user = new UserDto();
+
+        user.getDto(userDbService.findById(id), true);
+
+        try {
+            updateUserDto(userDto, user);
+        } catch (IllegalAccessException ex) {
+            throw new CustomInvalidInputException("");
+        }
+
+        return saveUser(user);
     }
 
     private Set<Account> getInitAccounts(Set<Account> accounts, User user) {
@@ -68,5 +80,17 @@ public class RegisterService {
         user.setAccounts(getInitAccounts(user.getAccounts(), user));
         user.getAddress().setId(null);
         user.getCi().setId(null);
+    }
+
+    private UserDto updateUserDto(UserDto out, UserDto in) throws IllegalAccessException {
+        Field[] fields = UserDto.class.getDeclaredFields();
+        for (Field field: fields) {
+            System.out.println("Value of Field "
+                    + field.getName()
+                    + " is " + field.get(out));
+        }
+        //pentru fiecare field din out
+        //daca are valoarea null seteaza-l cu echivalentul din in
+        return out;
     }
 }

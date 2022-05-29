@@ -2,11 +2,9 @@ package MainPackage.RestControllers;
 
 import MainPackage.Domain.User;
 import MainPackage.Dto.UserDto;
-import MainPackage.EnumsAndStaticClasses.UserRole;
-import MainPackage.Services.DatabaseCommunication.UserDbService;
+import MainPackage.Services.DatabaseCommunication.ModelReturnType.UserEntityModelService;
 import MainPackage.Services.Utils.Models.AuthRequest;
 import lombok.AllArgsConstructor;
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
+import javax.validation.Valid;
 
 
 @AllArgsConstructor
@@ -28,18 +26,16 @@ import java.util.Collections;
 public class AuthenticationController {
 
     private final AuthenticationManager authManager;
-    private final UserDbService userService;
+    private final UserEntityModelService userService;
 
     @PostMapping("/login")
-    private ResponseEntity<?> authenticate(@RequestBody AuthRequest request) {
+    private ResponseEntity<?> authenticate(@Valid @RequestBody AuthRequest request) {
 
         try {
             Authentication authentication = authManager
-                    .authenticate(
-                            new UsernamePasswordAuthenticationToken(
+                    .authenticate(new UsernamePasswordAuthenticationToken(
                                     request.getUsername(), request.getPassword()
-                            )
-                    );
+                    ));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 

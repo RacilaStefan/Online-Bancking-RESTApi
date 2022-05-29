@@ -1,4 +1,4 @@
-package MainPackage.Services.DatabaseCommunication;
+package MainPackage.Services.DatabaseCommunication.ModelReturnType;
 
 import MainPackage.Domain.Address;
 import MainPackage.Dto.AddressDto;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 
 @AllArgsConstructor
-public class AddressDbService {
+public class AddressEntityModelService {
 
     private final AddressRepository repository;
     private final EntityModelGenerator generator;
@@ -24,9 +24,5 @@ public class AddressDbService {
     public EntityModel<AddressDto> findById(Long id) {
         return generator.generateModelFromAddress(
                 repository.findById(id).orElseThrow());
-    }
-
-    public Address saveAddress(Address address) {
-        return repository.save(address);
     }
 }

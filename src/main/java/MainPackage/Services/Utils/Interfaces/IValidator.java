@@ -11,7 +11,7 @@ import java.util.Set;
 
 public interface IValidator {
 
-    boolean validateUser(UserDto user) throws CustomInvalidInputException, JsonProcessingException;
+    boolean validateUser(UserDto user) throws CustomInvalidInputException;
 
     boolean validateAddress(AddressDto address) throws CustomInvalidInputException;
 

@@ -1,5 +1,6 @@
-package MainPackage.Services.DatabaseCommunication;
+package MainPackage.Services.DatabaseCommunication.ModelReturnType;
 
+import MainPackage.Domain.Account;
 import MainPackage.Domain.User;
 import MainPackage.Dto.*;
 import MainPackage.GlobalExceptionHandler.CustomExceptions.CustomInvalidInputException;
@@ -11,13 +12,12 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ConstraintViolationException;
-import java.io.IOException;
+import java.util.Set;
 
 @Service
 
 @AllArgsConstructor
-public class UserDbService {
+public class UserEntityModelService {
 
     private final UserRepository repository;
     private final EntityModelGenerator generator;
@@ -56,18 +56,5 @@ public class UserDbService {
                         .stream()
                         .filter(account -> account.getId().equals(accountId))
                 .findAny().orElseThrow());
-    }
-
-    public User saveUser(User user) throws CustomInvalidInputException {
-        try {
-            repository.save(user);
-        } catch (DataIntegrityViolationException ex) {
-            throw new CustomInvalidInputException(ex.getCause().getCause().getMessage());
-        }
-        return user;
-    }
-
-    public User findByUsername(String username) {
-        return repository.findByUsername(username);
     }
 }

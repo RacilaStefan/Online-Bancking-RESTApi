@@ -5,6 +5,7 @@ import MainPackage.GlobalExceptionHandler.CustomExceptions.CustomInvalidInputExc
 import MainPackage.Services.Utils.Implementations.RegisterService;
 import MainPackage.Services.Utils.Implementations.CurrentTime;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -14,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.File;
 import java.io.IOException;
 
+@AllArgsConstructor
 @SpringBootApplication
 public class PROKingApplication implements CommandLineRunner {
 
@@ -22,11 +24,6 @@ public class PROKingApplication implements CommandLineRunner {
 	private static final Logger logger = LoggerFactory
 			.getLogger(PROKingApplication.class);
 
-	public PROKingApplication(RegisterService registerService, ObjectMapper mapper) {
-
-		this.registerService = registerService;
-		this.mapper = mapper;
-	}
 	public static void main(String[] args) {
 
 		SpringApplication.run(PROKingApplication.class, args);
@@ -40,7 +37,7 @@ public class PROKingApplication implements CommandLineRunner {
 
 		try {
 			UserDto user = mapper.readValue(new File("./mock-admin-user.json"), UserDto.class);
-			registerService.registerUser(user);
+			registerService.saveUser(user);
 			String info = "Mock admin user created with following credentials: \n" +
 					"Username: " + user.getUsername() + "\n" +
 					"Password: " + user.getPassword();

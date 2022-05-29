@@ -1,4 +1,4 @@
-package MainPackage.Services.DatabaseCommunication;
+package MainPackage.Services.DatabaseCommunication.ModelReturnType;
 
 import MainPackage.Domain.CI;
 import MainPackage.Dto.CIDto;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 
 @AllArgsConstructor
-public class CIDbService {
+public class CIEntityModelService {
 
     private final CIRepository repository;
     private final EntityModelGenerator generator;
@@ -23,9 +23,5 @@ public class CIDbService {
 
     public EntityModel<CIDto> findById(Long id) {
         return generator.generateModelFromCi(repository.findById(id).orElseThrow());
-    }
-
-    public CI saveCI(CI ci) {
-        return repository.save(ci);
     }
 }

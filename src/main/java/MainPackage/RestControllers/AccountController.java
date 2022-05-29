@@ -1,10 +1,7 @@
 package MainPackage.RestControllers;
 
-import MainPackage.Domain.Account;
 import MainPackage.Dto.AccountDto;
-import MainPackage.Dto.AddressDto;
-import MainPackage.Services.DatabaseCommunication.AccountDbService;
-import MainPackage.Services.DatabaseCommunication.AddressDbService;
+import MainPackage.Services.DatabaseCommunication.ModelReturnType.AccountEntityModelService;
 import lombok.AllArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -19,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class AccountController {
 
-    private final AccountDbService service;
+    private final AccountEntityModelService service;
 
     @GetMapping()
     public CollectionModel<EntityModel<AccountDto>> findAll() {

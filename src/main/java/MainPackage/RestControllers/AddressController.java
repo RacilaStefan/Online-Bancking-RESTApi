@@ -1,7 +1,7 @@
 package MainPackage.RestControllers;
 
 import MainPackage.Dto.AddressDto;
-import MainPackage.Services.DatabaseCommunication.AddressDbService;
+import MainPackage.Services.DatabaseCommunication.ModelReturnType.AddressEntityModelService;
 import lombok.AllArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class AddressController {
 
-    private final AddressDbService service;
+    private final AddressEntityModelService service;
 
     @GetMapping()
     public CollectionModel<EntityModel<AddressDto>> findAll() {

@@ -3,7 +3,7 @@ package MainPackage.RestControllers;
 import MainPackage.Dto.*;
 import MainPackage.GlobalExceptionHandler.CustomExceptions.CustomInvalidInputException;
 import MainPackage.Services.Utils.Implementations.RegisterService;
-import MainPackage.Services.DatabaseCommunication.UserDbService;
+import MainPackage.Services.DatabaseCommunication.ModelReturnType.UserEntityModelService;
 import lombok.AllArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class UserController {
 
-    private final UserDbService userService;
+    private final UserEntityModelService userService;
     private final RegisterService registerService;
 
     //#######  GET ENDPOINTS  #######//
@@ -63,10 +63,16 @@ public class UserController {
     //#######  POST ENDPOINTS  #######//
 
     @PostMapping()
-    private ResponseEntity<String> save(@RequestBody UserDto user) throws CustomInvalidInputException {
-        registerService.registerUser(user);
+    private ResponseEntity<String> saveUser(@RequestBody UserDto user) throws CustomInvalidInputException {
+        registerService.saveUser(user);
         return new ResponseEntity<>("User created", HttpStatus.CREATED);
     }
 
     //#######  POST ENDPOINTS  #######//
+
+    @PutMapping("/{id}")
+    private ResponseEntity<?> saveUser(@PathVariable Long id, @RequestBody UserDto user) throws CustomInvalidInputException {
+        registerService.saveUser(user, id);
+        return new ResponseEntity<>("User updated", HttpStatus.NO_CONTENT);
+    }
 }

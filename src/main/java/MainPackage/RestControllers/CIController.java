@@ -1,9 +1,7 @@
 package MainPackage.RestControllers;
 
 import MainPackage.Dto.CIDto;
-import MainPackage.Dto.UserDto;
-import MainPackage.Services.DatabaseCommunication.CIDbService;
-import MainPackage.Services.DatabaseCommunication.UserDbService;
+import MainPackage.Services.DatabaseCommunication.ModelReturnType.CIEntityModelService;
 import lombok.AllArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -18,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class CIController {
 
-    private final CIDbService service;
+    private final CIEntityModelService service;
 
     @GetMapping()
     public CollectionModel<EntityModel<CIDto>> findAll() {

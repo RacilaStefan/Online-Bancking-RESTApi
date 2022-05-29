@@ -1,4 +1,4 @@
-package MainPackage.Services.DatabaseCommunication;
+package MainPackage.Services.DatabaseCommunication.ModelReturnType;
 
 import MainPackage.Domain.Account;
 import MainPackage.Dto.AccountDto;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 
 @AllArgsConstructor
-public class AccountDbService {
+public class AccountEntityModelService {
 
     private final AccountRepository repository;
     private final EntityModelGenerator generator;
@@ -26,12 +26,5 @@ public class AccountDbService {
 
     public EntityModel<AccountDto> findById(Long id) {
         return generator.generateModelFromAccount(repository.findById(id).orElseThrow());
-    }
-
-    public Set<Account> saveAccounts(Set<Account> accounts) {
-        return accounts.stream().map(this::saveAccount).collect(Collectors.toSet());
-    }
-    public Account saveAccount(Account account) {
-        return repository.save(account);
     }
 }
