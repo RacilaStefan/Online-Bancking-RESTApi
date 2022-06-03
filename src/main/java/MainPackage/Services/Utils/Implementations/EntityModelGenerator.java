@@ -46,7 +46,7 @@ public class EntityModelGenerator implements IEntityModelGenerator {
         links.add(linkTo(methodOn(UserController.class).findCiByUserId(user.getId())).withRel("ci"));
         links.add(linkTo(methodOn(UserController.class).findTokenByUserId(user.getId())).withRel("token"));
 
-        return EntityModel.of(new UserDto().getDto(user, false), links);
+        return EntityModel.of(new UserDto().getDto(user), links);
     }
 
     public CollectionModel<EntityModel<AddressDto>> generateModelFromAddresses(Iterable<Address> addresses) {
@@ -86,7 +86,7 @@ public class EntityModelGenerator implements IEntityModelGenerator {
 
     public CollectionModel<EntityModel<AccountDto>> generateModelFromAccounts(Set<Account> accounts) {
         return CollectionModel.of(accounts.stream().map(
-                this::generateModelFromAccount
+                        account -> generateModelFromAccount(account, true)
                 ).collect(Collectors.toSet()),
                 linkTo(methodOn(UserController.class)
                         .findAccountsByUserId(accounts
@@ -98,14 +98,18 @@ public class EntityModelGenerator implements IEntityModelGenerator {
     public CollectionModel<EntityModel<AccountDto>> generateModelFromAccounts(Iterable<Account> accounts) {
         return CollectionModel.of(
                 StreamSupport.stream(accounts.spliterator(), false).map(
-                        this::generateModelFromAccount
+                        account -> generateModelFromAccount(account, false)
                 ).collect(Collectors.toSet()),
                 linkTo(methodOn(AccountController.class).findAll()).withSelfRel());
     }
 
-    public EntityModel<AccountDto> generateModelFromAccount(Account account) {
+    public EntityModel<AccountDto> generateModelFromAccount(Account account, boolean calledFromParent) {
+        Link selfLink = calledFromParent ?
+            linkTo(methodOn(UserController.class).findAccountByIdByUserId(account.getUser().getId(), account.getId())).withSelfRel()
+                :
+            linkTo(methodOn(AccountController.class).findById(account.getId())).withSelfRel();
         return EntityModel.of(new AccountDto().getDto(account),
-                linkTo(methodOn(AccountController.class).findById(account.getId())).withSelfRel(),
+                selfLink,
                 linkTo(methodOn(UserController.class).findById(account.getUser().getId())).withRel("user"));
 
     }

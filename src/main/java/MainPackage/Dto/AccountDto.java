@@ -31,7 +31,6 @@ public class AccountDto {
     @Enumerated(EnumType.STRING)
     private AccountType type;
 
-
     public Account fromDto() {
         Account account = new Account();
         account.setId(this.id);

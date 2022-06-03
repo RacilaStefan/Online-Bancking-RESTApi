@@ -6,5 +6,4 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CIRepository extends CrudRepository<CI, Long> {
-}
+public interface CIRepository extends CrudRepository<CI, Long> { }

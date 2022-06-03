@@ -1,4 +1,4 @@
-package MainPackage.Services.DatabaseCommunication.EntityModelType;
+package MainPackage.Services.DatabaseCommunication;
 
 
 import MainPackage.Domain.User;
@@ -15,20 +15,33 @@ public class UserDbService {
 
     private final UserRepository repository;
 
-    public User findById(Long id) {
-        return repository.findById(id).orElseThrow();
-    }
+    //#######  CREATE METHODS  #######//
 
-    public User saveUser(User user) throws CustomInvalidInputException {
+    public void saveUser(User user) throws CustomInvalidInputException {
         try {
             repository.save(user);
         } catch (DataIntegrityViolationException ex) {
             throw new CustomInvalidInputException(ex.getCause().getCause().getMessage());
         }
-        return user;
+    }
+
+    //#######  CREATE METHODS  #######//
+
+    //#######  READ METHODS  #######//
+
+    public Iterable<User> findAll() { return repository.findAll(); }
+
+    public User findById(Long id) {
+        return repository.findById(id).orElseThrow();
     }
 
     public User findByUsername(String username) {
-        return repository.findByUsername(username);
+        return repository.findByUsername(username).orElseThrow();
     }
+
+    //#######  READ METHODS  #######//
+
+    //#######  DELETE METHODS  #######//
+
+    //#######  DELETE METHODS  #######//
 }

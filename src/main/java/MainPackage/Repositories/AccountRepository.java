@@ -9,5 +9,4 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AccountRepository extends CrudRepository<Account, Long> {
-}
+public interface AccountRepository extends CrudRepository<Account, Long> { }

@@ -11,13 +11,13 @@ import java.util.Set;
 
 public interface IValidator {
 
-    boolean validateUser(UserDto user) throws CustomInvalidInputException;
+    void validateUser(UserDto user) throws CustomInvalidInputException;
 
-    boolean validateAddress(AddressDto address) throws CustomInvalidInputException;
+    void validateAddress(AddressDto address) throws CustomInvalidInputException;
 
-    boolean validateAccounts(Set<AccountDto> accounts) throws CustomInvalidInputException;
+    void validateAccounts(Set<AccountDto> accounts) throws CustomInvalidInputException;
 
-    boolean validateAccount(AccountDto account) throws CustomInvalidInputException;
+    void validateAccount(AccountDto account) throws CustomInvalidInputException;
 
-    boolean validateCI(CIDto ci) throws CustomInvalidInputException;
+    void validateCI(CIDto ci) throws CustomInvalidInputException;
 }

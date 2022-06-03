@@ -1,8 +1,7 @@
 package MainPackage.Services;
 
 import MainPackage.Domain.User;
-import MainPackage.Services.DatabaseCommunication.EntityModelType.UserDbService;
-import MainPackage.Services.DatabaseCommunication.ModelReturnType.UserEntityModelService;
+import MainPackage.Services.DatabaseCommunication.UserDbService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

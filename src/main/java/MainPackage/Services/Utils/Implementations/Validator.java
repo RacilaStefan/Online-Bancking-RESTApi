@@ -23,47 +23,42 @@ public class Validator implements IValidator {
     private final BankAccountService bankAccountService;
 
     @Override
-    public boolean validateUser(UserDto user) throws CustomInvalidInputException {
+    public void validateUser(UserDto user) throws CustomInvalidInputException {
         Set<ConstraintViolation<UserDto>> violations = validator.validate(user);
         if (!violations.isEmpty()) {
             throw new CustomInvalidInputException(violations.toString());
         }
-        return true;
     }
 
     @Override
-    public boolean validateAddress(AddressDto address) throws CustomInvalidInputException {
+    public void validateAddress(AddressDto address) throws CustomInvalidInputException {
         Set<ConstraintViolation<AddressDto>> violations = validator.validate(address);
         if (!violations.isEmpty()) {
             throw new CustomInvalidInputException(violations.toString());
         }
-        return true;
     }
 
     @Override
-    public boolean validateAccounts(Set<AccountDto> accounts) throws CustomInvalidInputException {
+    public void validateAccounts(Set<AccountDto> accounts) throws CustomInvalidInputException {
         for (AccountDto account : accounts) {
             validateAccount(account);
         }
-        return true;
     }
 
     @Override
-    public boolean validateAccount(AccountDto account) throws CustomInvalidInputException {
+    public void validateAccount(AccountDto account) throws CustomInvalidInputException {
         Set<ConstraintViolation<AccountDto>> violations = validator.validate(account);
         if (!violations.isEmpty()) {
             throw new CustomInvalidInputException(violations.toString());
         }
-        return true;
     }
 
     @Override
-    public boolean validateCI(CIDto ci) throws CustomInvalidInputException {
+    public void validateCI(CIDto ci) throws CustomInvalidInputException {
         Set<ConstraintViolation<CIDto>> violations = validator.validate(ci);
         if (!violations.isEmpty()) {
             throw new CustomInvalidInputException(violations.toString());
         }
-        return true;
     }
 
     public Boolean validateIBAN(String IBAN) {

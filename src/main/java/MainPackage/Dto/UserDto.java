@@ -34,7 +34,7 @@ public class UserDto {
     private String username;
 
     @NotNull
-    @Pattern(regexp = "[A-Za-z0-9~!@#$%^&*()_=+\\[{};:'\"<>,.?\\]\\-]{12,100}")
+    @Pattern(regexp = "[A-Za-z0-9~!@#$%^&*()_=+{};:<>,.?'\"\\[\\]\\-/]{12,100}")
     private String password;
 
     @NotNull
@@ -61,8 +61,12 @@ public class UserDto {
     @NotNull
     private CIDto ci;
 
-    public User fromDto(){
+    public User fromDto() {
         User user = new User();
+
+        if (this.id != null) {
+            user.setId(id);
+        }
 
         user.setLastName(this.lastName);
         user.setFirstName(this.firstName);
@@ -76,12 +80,21 @@ public class UserDto {
 
         user.setAddress(this.address.fromDto());
         user.setAccounts(this.accounts.stream().map(AccountDto::fromDto).collect(Collectors.toSet()));
+        user.getAccounts().forEach(account -> account.setUser(user));
         user.setCi(this.ci.fromDto());
 
         return user;
     }
 
+    public UserDto getDto(User user) {
+        return getDto(user, false, false);
+    }
+
     public UserDto getDto(User user, boolean withPassword) {
+        return getDto(user, withPassword, false);
+    }
+
+    public UserDto getDto(User user, boolean withPassword, boolean withChildren) {
         this.setId(user.getId());
         this.setLastName(user.getLastName());
         this.setFirstName(user.getFirstName());
@@ -93,6 +106,12 @@ public class UserDto {
         this.setRole(user.getRole());
         this.setLocked(user.getLocked());
         this.setEnabled(user.getEnabled());
+
+        if (withChildren) {
+            this.setAddress(new AddressDto().getDto(user.getAddress()));
+            this.setAccounts(user.getAccounts().stream().map(account -> new AccountDto().getDto(account)).collect(Collectors.toSet()));
+            this.setCi(new CIDto().getDto(user.getCi()));
+        }
 
         return this;
     }

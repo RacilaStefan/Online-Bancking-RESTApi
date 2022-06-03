@@ -89,7 +89,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         config.setAllowCredentials(true);
         config.setAllowedOriginPatterns(List.of("*"));
         config.setAllowedHeaders(List.of("Content-Type"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PUT","OPTIONS","PATCH", "DELETE"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
