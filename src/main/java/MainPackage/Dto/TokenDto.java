@@ -4,6 +4,7 @@ import MainPackage.Domain.Token;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -12,28 +13,52 @@ import java.util.UUID;
 public class TokenDto {
 
     private Long id;
-    private UUID token1;
-    private LocalDateTime expDate1;
-    private UUID token2;
-    private LocalDateTime expDate2;
+
+    @NotNull
+    private String registrationToken;
+
+    @NotNull
+    private LocalDateTime registrationTokenExpiration;
+
+    private String passwordChangeToken;
+
+    private LocalDateTime passwordChangeTokenExpiration;
+
+    private String paymentToken;
+
+    private LocalDateTime paymentTokenExpiration;
+
+    private String twoFACode;
+
+    private LocalDateTime twoFACodeExpiration;
 
     public Token fromDto() {
         Token token = new Token();
+
         token.setId(this.id);
-        token.setToken1(this.token1);
-        token.setExpDate1(this.expDate1);
-        token.setToken2(this.token2);
-        token.setExpDate2(this.expDate2);
+        token.setRegistrationToken(this.registrationToken);
+        token.setRegistrationTokenExpiration(this.registrationTokenExpiration);
+        token.setPasswordChangeToken(this.passwordChangeToken);
+        token.setPasswordChangeTokenExpiration(this.passwordChangeTokenExpiration);
+        token.setPaymentToken(this.paymentToken);
+        token.setPaymentTokenExpiration(this.paymentTokenExpiration);
+        token.setTwoFACode(this.twoFACode);
+        token.setTwoFACodeExpiration(this.twoFACodeExpiration);
 
         return token;
     }
 
+
     public TokenDto getDto(Token token) {
         this.setId(token.getId());
-        this.setToken1(token.getToken1());
-        this.setExpDate1(token.getExpDate1());
-        this.setToken2(token.getToken2());
-        this.setExpDate2(token.getExpDate2());
+        this.setRegistrationToken(token.getRegistrationToken());
+        this.setRegistrationTokenExpiration(token.getRegistrationTokenExpiration());
+        this.setPasswordChangeToken(token.getPasswordChangeToken());
+        this.setPasswordChangeTokenExpiration(token.getPasswordChangeTokenExpiration());
+        this.setPaymentToken(token.getPaymentToken());
+        this.setPaymentTokenExpiration(token.getPaymentTokenExpiration());
+        this.setTwoFACode(token.getTwoFACode());
+        this.setTwoFACodeExpiration(token.getTwoFACodeExpiration());
 
         return this;
     }

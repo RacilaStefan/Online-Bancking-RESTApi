@@ -19,5 +19,10 @@ public class BankDetails {
                     AccountType.SAVINGS_ACCOUNT, "101",
                     AccountType.RECURRING_DEPOSIT_ACCOUNT, "103",
                     AccountType.FIXED_DEPOSIT_ACCOUNT, "104");
+    public static final Map<Currency, Float> exchangeRates =
+            Map.of( Currency.RON, 1.00f,
+                    Currency.EUR, 4.95f,
+                    Currency.USD, 4.61f,
+                    Currency.GBP, 5.78f);
 
 }

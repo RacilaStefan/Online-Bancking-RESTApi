@@ -2,10 +2,7 @@ package MainPackage.Services.Utils.Implementations;
 
 import MainPackage.Domain.*;
 import MainPackage.Dto.*;
-import MainPackage.RestControllers.AccountController;
-import MainPackage.RestControllers.AddressController;
-import MainPackage.RestControllers.CIController;
-import MainPackage.RestControllers.UserController;
+import MainPackage.RestControllers.*;
 import MainPackage.Services.Utils.Interfaces.IEntityModelGenerator;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -44,6 +41,7 @@ public class EntityModelGenerator implements IEntityModelGenerator {
         ).collect(Collectors.toList()));
         links.add(linkTo(methodOn(UserController.class).findAddressByUserId(user.getId())).withRel("address"));
         links.add(linkTo(methodOn(UserController.class).findCiByUserId(user.getId())).withRel("ci"));
+        links.add(linkTo(methodOn(TransactionController.class).findAll()).withRel("transactions"));
         links.add(linkTo(methodOn(UserController.class).findTokenByUserId(user.getId())).withRel("token"));
 
         return EntityModel.of(new UserDto().getDto(user), links);
@@ -112,5 +110,19 @@ public class EntityModelGenerator implements IEntityModelGenerator {
                 selfLink,
                 linkTo(methodOn(UserController.class).findById(account.getUser().getId())).withRel("user"));
 
+    }
+
+    public CollectionModel<EntityModel<TransactionDto>> generateModelFromTransactions(Iterable<Transaction> transactions) {
+        return CollectionModel.of(
+                StreamSupport.stream(transactions.spliterator(), false).map(
+                        this::generateModelFromTransaction
+                ).collect(Collectors.toSet()),
+                linkTo(methodOn(TransactionController.class).findAll()).withSelfRel());
+    }
+
+    public EntityModel<TransactionDto> generateModelFromTransaction(Transaction transaction) {
+        return EntityModel.of(new TransactionDto().getDto(transaction),
+                linkTo(methodOn(TransactionController.class).findById(transaction.getId())).withSelfRel(),
+                linkTo(methodOn(TransactionController.class).findAll()).withRel("transactions"));
     }
 }

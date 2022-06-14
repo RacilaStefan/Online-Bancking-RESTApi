@@ -20,5 +20,5 @@ public class AuthRequest {
     @Pattern(regexp = "[A-Za-z0-9~!@#$%^&*()_=+\\[{};:'\"<>,.?\\]\\-]{12,100}")
     private String password;
 
-    private String code;
+    private String twoFACode;
 }

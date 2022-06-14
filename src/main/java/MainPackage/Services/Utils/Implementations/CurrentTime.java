@@ -1,22 +1,20 @@
 package MainPackage.Services.Utils.Implementations;
 
-import lombok.Getter;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+import java.time.LocalDate;
 
 @Service
 public class CurrentTime {
 
-    public static LocalDateTime today;
-    public static LocalDateTime tomorrow;
-    public static LocalDateTime afterOneYear;
-    public static LocalDateTime afterTwoYears;
-    public static LocalDateTime afterThreeYears;
+    public static LocalDate today;
+    public static LocalDate tomorrow;
+    public static LocalDate afterOneYear;
+    public static LocalDate afterTwoYears;
+    public static LocalDate afterThreeYears;
 
     public static void init() {
-        today = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
+        today = LocalDate.now();
         tomorrow = today.plusDays(1);
         afterOneYear = today.plusYears(1);
         afterTwoYears = today.plusYears(2);

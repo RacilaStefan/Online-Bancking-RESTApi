@@ -7,6 +7,10 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface AccountRepository extends CrudRepository<Account, Long> { }
+public interface AccountRepository extends CrudRepository<Account, Long> {
+
+    Optional<Account> findByIBAN(String IBAN);
+}

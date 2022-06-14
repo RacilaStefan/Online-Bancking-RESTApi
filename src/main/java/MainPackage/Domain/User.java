@@ -97,35 +97,29 @@ public class User implements UserDetails {
         if (role != user.role) return false;
         if (!Objects.equals(locked, user.locked)) return false;
         if (!Objects.equals(enabled, user.enabled)) return false;
-        if (!Objects.equals(token, user.token)) return false;
         if (!Objects.equals(address, user.address)) return false;
         if (!Objects.equals(ci, user.ci)) return false;
+        if (!Objects.equals(token, user.token)) return false;
         return Objects.equals(accounts, user.accounts);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, lastName, firstName, username, password, email, telephoneNumber, role, locked, enabled, token, address, ci, accounts);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", lastName='" + lastName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", telephoneNumber='" + telephoneNumber + '\'' +
-                ", role=" + role +
-                ", locked=" + locked +
-                ", enabledVar=" + enabled +
-                ", tokenTable=" + token +
-                ", address=" + address +
-                ", ci=" + ci +
-                ", accounts=" + accounts +
-                '}';
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (telephoneNumber != null ? telephoneNumber.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        result = 31 * result + (locked != null ? locked.hashCode() : 0);
+        result = 31 * result + (enabled != null ? enabled.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (ci != null ? ci.hashCode() : 0);
+        result = 31 * result + (token != null ? token.hashCode() : 0);
+        result = 31 * result + (accounts != null ? accounts.hashCode() : 0);
+        return result;
     }
 
     @Override
@@ -151,6 +145,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 }

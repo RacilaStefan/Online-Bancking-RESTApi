@@ -9,7 +9,7 @@ import lombok.Setter;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -20,8 +20,8 @@ public class AccountDto {
     private String cardNumber;
     private String pin;
     private String CVV;
-    private Long balance;
-    private LocalDateTime expirationDate;
+    private float balance;
+    private LocalDate expirationDate;
 
     @NotNull
     @Enumerated(EnumType.STRING)

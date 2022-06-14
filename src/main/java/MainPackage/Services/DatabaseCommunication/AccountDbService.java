@@ -21,6 +21,10 @@ public class AccountDbService {
         return repository.save(account);
     }
 
+    public Set<Account> saveAccounts(Set<Account> accounts) {
+        return accounts.stream().map(this::saveAccount).collect(Collectors.toSet());
+    }
+
     //#######  CREATE METHODS  #######//
 
     //#######  READ METHODS  #######//
@@ -29,8 +33,8 @@ public class AccountDbService {
 
     public Account findById(Long id) { return repository.findById(id).orElseThrow(); }
 
-    public Set<Account> saveAccounts(Set<Account> accounts) {
-        return accounts.stream().map(this::saveAccount).collect(Collectors.toSet());
+    public Account findByIBAN(String IBAN) {
+        return repository.findByIBAN(IBAN).orElseThrow();
     }
 
     //#######  READ METHODS  #######//

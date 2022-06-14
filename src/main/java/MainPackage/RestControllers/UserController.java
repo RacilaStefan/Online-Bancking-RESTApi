@@ -59,6 +59,11 @@ public class UserController {
         return service.findAccountByIdByUserId(userId, accountId);
     }
 
+    @GetMapping("{id}/transactions")
+    public CollectionModel<EntityModel<TransactionDto>> findTransactionsByUserId(@PathVariable Long id) {
+        return service.findTransactionsByUserId(id);
+    }
+
     //#######  GET ENDPOINTS  #######//
 
     //#######  POST ENDPOINTS  #######//

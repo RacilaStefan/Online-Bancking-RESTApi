@@ -39,6 +39,8 @@ public class UserDbService {
         return repository.findByUsername(username).orElseThrow();
     }
 
+    public User findByTokenId(Long id) { return repository.findByTokenId(id).orElseThrow(); }
+
     //#######  READ METHODS  #######//
 
     //#######  DELETE METHODS  #######//

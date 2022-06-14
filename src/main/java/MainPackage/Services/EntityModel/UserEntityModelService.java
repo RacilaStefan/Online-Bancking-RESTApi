@@ -2,11 +2,12 @@ package MainPackage.Services.EntityModel;
 
 
 import MainPackage.Domain.Account;
+import MainPackage.Domain.Transaction;
 import MainPackage.Domain.User;
 import MainPackage.Dto.*;
 import MainPackage.GlobalExceptionHandler.CustomExceptions.CustomInvalidInputException;
 import MainPackage.Services.DatabaseCommunication.AccountDbService;
-import MainPackage.Services.DatabaseCommunication.AddressDbService;
+import MainPackage.Services.DatabaseCommunication.TransactionDbService;
 import MainPackage.Services.DatabaseCommunication.UserDbService;
 import MainPackage.Services.Utils.Implementations.EntityModelGenerator;
 import MainPackage.Services.Utils.Implementations.Utilities;
@@ -15,6 +16,10 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 
 @AllArgsConstructor
@@ -22,6 +27,7 @@ public class UserEntityModelService {
 
     private final UserDbService userDbService;
     private final AccountDbService accountDbService;
+    private final TransactionDbService transactionDbService;
 
     private final Utilities util;
 
@@ -36,6 +42,8 @@ public class UserEntityModelService {
         util.prepareUserForRegister(user);
 
         userDbService.saveUser(user);
+
+        //util.sendRegistrationToken(user);
     }
 
     //#######  CREATE METHODS  #######//
@@ -76,6 +84,15 @@ public class UserEntityModelService {
                         .stream()
                         .filter(account -> account.getId().equals(accountId))
                 .findAny().orElseThrow(), true);
+    }
+
+
+    public CollectionModel<EntityModel<TransactionDto>> findTransactionsByUserId(Long id) {
+        ArrayList<Transaction> transactions = new ArrayList<>();
+        userDbService.findById(id).getAccounts().forEach(account -> {
+            transactionDbService.findByFromAccountIBAN(account.getIBAN()).forEach(transactions::add);
+        });
+        return generator.generateModelFromTransactions(transactions);
     }
 
     //#######  READ METHODS  #######//

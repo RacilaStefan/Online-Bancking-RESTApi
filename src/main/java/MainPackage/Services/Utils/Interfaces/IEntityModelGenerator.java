@@ -28,4 +28,8 @@ public interface IEntityModelGenerator {
     CollectionModel<EntityModel<AccountDto>> generateModelFromAccounts(Iterable<Account> accounts);
 
     EntityModel<AccountDto> generateModelFromAccount(Account account, boolean calledFromParent);
+
+    CollectionModel<EntityModel<TransactionDto>> generateModelFromTransactions(Iterable<Transaction> transactions);
+
+    EntityModel<TransactionDto> generateModelFromTransaction(Transaction transaction);
 }

@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class UserDto {
 
     private Long id;
@@ -52,7 +51,7 @@ public class UserDto {
     @NotNull
     private Boolean locked = false;
     @NotNull
-    private Boolean enabled = true;
+    private Boolean enabled = false;
 
     @NotNull
     private AddressDto address;
@@ -60,6 +59,8 @@ public class UserDto {
     private Set<AccountDto> accounts;
     @NotNull
     private CIDto ci;
+
+    private TokenDto token;
 
     public User fromDto() {
         User user = new User();
@@ -75,13 +76,18 @@ public class UserDto {
         user.setEmail(this.email);
         user.setTelephoneNumber(this.telephoneNumber);
         user.setRole(this.role);
-        user.setLocked(this.locked);
         user.setEnabled(this.enabled);
+        user.setLocked(this.locked);
 
         user.setAddress(this.address.fromDto());
         user.setAccounts(this.accounts.stream().map(AccountDto::fromDto).collect(Collectors.toSet()));
         user.getAccounts().forEach(account -> account.setUser(user));
         user.setCi(this.ci.fromDto());
+        if (this.token != null) {
+            user.setToken(this.token.fromDto());
+        } else {
+            user.setToken(new Token());
+        }
 
         return user;
     }
@@ -111,6 +117,7 @@ public class UserDto {
             this.setAddress(new AddressDto().getDto(user.getAddress()));
             this.setAccounts(user.getAccounts().stream().map(account -> new AccountDto().getDto(account)).collect(Collectors.toSet()));
             this.setCi(new CIDto().getDto(user.getCi()));
+            this.setToken(new TokenDto().getDto(user.getToken()));
         }
 
         return this;

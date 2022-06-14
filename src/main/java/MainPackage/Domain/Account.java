@@ -5,12 +5,11 @@ import MainPackage.EnumsAndStaticClasses.BankDetails;
 import MainPackage.EnumsAndStaticClasses.Currency;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -44,10 +43,10 @@ public class Account {
     private String CVV;
 
     @NotNull
-    private Long balance;
+    private float balance;
 
     @NotNull
-    private LocalDateTime expirationDate;
+    private LocalDate expirationDate;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -69,7 +68,7 @@ public class Account {
 
         Account account = (Account) o;
 
-        if (!balance.equals(account.balance)) return false;
+        if (balance != account.balance) return false;
         if (!Objects.equals(id, account.id)) return false;
         if (!Objects.equals(IBAN, account.IBAN)) return false;
         if (!Objects.equals(currency, account.currency)) return false;
