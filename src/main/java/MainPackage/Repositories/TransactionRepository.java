@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface TransactionRepository extends CrudRepository<Transaction, Long> {
 
     Iterable<Transaction> findByFromAccountIBAN(String IBAN);
+
+    Iterable<Transaction> findByToAccountIBAN(String IBAN);
 }

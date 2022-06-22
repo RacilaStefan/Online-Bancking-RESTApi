@@ -10,12 +10,14 @@
 	</parent>
 	<groupId>MainPackage</groupId>
 	<artifactId>PROKing</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1</version>
 	<name>PRO King</name>
 	<description>Proiect pentru licenta cu tema Online Banking</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>13</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
 	</properties>
 
 	<dependencies>
@@ -90,5 +92,7 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<packaging>jar</packaging>
 
 </project>

@@ -136,9 +136,9 @@ public class Utilities {
         emailService.sendSimpleMessage(
                user.getEmail(),
                 Constants.registerSubject,
-                "Verify your account by clicking the link below, or if you cannot click it, paste it in the browser. " +
-                        "http://localhost:3000/" + user.getToken().getRegistrationToken() +
-                        " The token will expire in " +
+                "Verify your account by clicking the link below, or if you cannot click it, paste it in the search bar of your browser. " +
+                        "http://localhost:3000/verify?" + user.getToken().getRegistrationToken() +
+                        " The link will expire in " +
                         Duration.between(LocalDateTime.now(), user.getToken().getRegistrationTokenExpiration()).toMinutes() +
                         " minutes."
         );

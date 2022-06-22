@@ -90,7 +90,7 @@ public class UserEntityModelService {
     public CollectionModel<EntityModel<TransactionDto>> findTransactionsByUserId(Long id) {
         ArrayList<Transaction> transactions = new ArrayList<>();
         userDbService.findById(id).getAccounts().forEach(account -> {
-            transactionDbService.findByFromAccountIBAN(account.getIBAN()).forEach(transactions::add);
+            transactions.addAll(transactionDbService.findByIBAN(account.getIBAN()));
         });
         return generator.generateModelFromTransactions(transactions);
     }

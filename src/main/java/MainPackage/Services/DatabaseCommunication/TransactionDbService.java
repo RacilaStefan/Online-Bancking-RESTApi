@@ -5,6 +5,9 @@ import MainPackage.Repositories.TransactionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 
 @AllArgsConstructor
@@ -27,6 +30,14 @@ public class TransactionDbService {
     public Transaction findById(Long id) { return repository.findById(id).orElseThrow(); }
 
     public Iterable<Transaction> findByFromAccountIBAN(String IBAN) { return repository.findByFromAccountIBAN(IBAN); }
+
+    public List<Transaction> findByIBAN(String IBAN) {
+        List<Transaction> transactions = new ArrayList<>();
+        repository.findByFromAccountIBAN(IBAN).forEach(transactions::add);
+        repository.findByToAccountIBAN(IBAN).forEach(transactions::add);
+
+        return transactions;
+    }
 
     //#######  READ METHODS  #######//
 
