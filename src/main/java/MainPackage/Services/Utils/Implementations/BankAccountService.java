@@ -10,7 +10,7 @@ import java.math.BigInteger;
 
 @AllArgsConstructor
 @Service
-public class BankAccountService {
+public class  BankAccountService {
 
     public String generateIBAN() {
         String IBAN = "";
@@ -37,7 +37,7 @@ public class BankAccountService {
     }
 
     private String checkSum(String IBAN) {
-        String intIBAN = getIntegerReprezentationFromIBAN(IBAN);
+        String intIBAN = getIntegerRepresentationFromIBAN(IBAN);
 
         int remainder = new BigInteger(intIBAN).mod(BigInteger.valueOf(97)).intValue();
         String result = Integer.toString(98 - remainder);
@@ -47,7 +47,7 @@ public class BankAccountService {
         return result;
     }
 
-    public String getIntegerReprezentationFromIBAN(String IBAN) {
+    public String getIntegerRepresentationFromIBAN(String IBAN) {
 
         StringBuilder intIBAN = new StringBuilder();
         for (int i = 0; i < IBAN.length(); i++) {

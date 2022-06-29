@@ -68,7 +68,7 @@ public class Validator implements IValidator {
         String temp = IBAN.substring(0, 4);
         IBAN = IBAN.substring(4);
         IBAN += temp;
-        String intIBAN = bankAccountService.getIntegerReprezentationFromIBAN(IBAN);
+        String intIBAN = bankAccountService.getIntegerRepresentationFromIBAN(IBAN);
 
         int remainder = new BigInteger(intIBAN).mod(BigInteger.valueOf(97)).intValue();
 

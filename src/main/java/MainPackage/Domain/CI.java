@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -31,12 +32,15 @@ public class CI {
     private Long id;
 
     @NotNull
+    @Pattern(regexp = "[0-9]{13}")
     private String CNP;
 
     @NotNull
+    @Pattern(regexp = "[A-Z]{2}")
     private String series;
 
     @NotNull
+    @Pattern(regexp = "[0-9]{6}")
     private String number;
 
     @NotNull

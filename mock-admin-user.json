@@ -15,10 +15,10 @@
         "street": "String"
     },
     "ci": {
-        "cnp": "string",
+        "cnp": "1231231231231",
         "expirationDate": "14/09/2027",
-        "number": "string",
-        "series": "string"
+        "number": "123123",
+        "series": "DF"
     },
     "email": "racila.stefan2000@gmail.com",
     "firstName": "Stefan",
